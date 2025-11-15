@@ -6,14 +6,23 @@ import { getPayload } from 'payload'
 import React from 'react'
 import RichText from '@/components/RichText'
 import { LetsTalk } from '@/components/letstalkGlob'
+// type Props = {
+//   params: { lang: string }
+//   searchParams?: { id?: string }
+// }
 type Props = {
-  params: { lang: string }
-  searchParams?: { id?: string }
+  params: Promise<{ lang: string }>
+  searchParams?: Promise<{ id?: string }>
 }
 
 export default async function CareerPage({ params, searchParams }: Props) {
-  const lang = params.lang
-  const id = searchParams?.id ?? null
+//   const lang = params.lang
+//   const id = searchParams?.id ?? null
+const resolvedParams = await params
+const resolvedSearchParams = searchParams ? await searchParams : {}
+
+const lang = resolvedParams.lang
+const id = resolvedSearchParams?.id ?? null
 
   // make sure to await the config if it's a Promise
   const payload = await getPayload({ config: await configPromise })
