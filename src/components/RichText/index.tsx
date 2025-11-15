@@ -68,10 +68,16 @@ export default function RichText(props: Props) {
       converters={jsxConverters}
       className={cn(
         'payload-richtext',
+        // {
+        //   container: enableGutter,
+        //   'max-w-none': !enableGutter,
+        //   'mx-auto prose md:prose-md dark:prose-invert': enableProse,
+        // },
         {
           container: enableGutter,
           'max-w-none': !enableGutter,
-          'mx-auto prose md:prose-md dark:prose-invert': enableProse,
+          // Removed `dark:prose-invert` and added explicit text-black to counter prose muted styles
+          'mx-auto prose md:prose-md text-black': enableProse,
         },
         className,
       )}
