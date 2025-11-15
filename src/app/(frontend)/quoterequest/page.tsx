@@ -1,9 +1,8 @@
-'use client'
+export const dynamic = 'force-dynamic'; // or 'auto'
 
 import React from 'react';
 import RequestQuotationForm from './Form';
 
-export const dynamic = 'force-dynamic'; // or 'auto'
 
 const RequestQuotationPage: React.FC = () => {
   return (
