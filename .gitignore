@@ -10,7 +10,7 @@ node_modules
 public/media/
 
 /src/app/(frontend)/joinourteam/
-
+/src/app/(frontend)/JoinOurTeam/
 /src/app/(frontend)/careersfor
 /src/app/(frontend)/reauestquotation
 /rel/src/app/(frontend)/posts
