@@ -37,8 +37,8 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
     //     <HeaderNav data={data} />
     //   </div>
     // </header>
-    <header
-  className="container relative z-20 text-black" // <- force black text
+<header
+  className="container relative z-20 text-black dark:text-black" // force black in both light and dark mode
   {...(theme ? { 'data-theme': theme } : {})}
 >
   <div className="py-8 flex justify-center">

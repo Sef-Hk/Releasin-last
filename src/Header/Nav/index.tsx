@@ -12,11 +12,21 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
   const navItems = data?.navItems || []
 
   return (
-    <nav className="flex gap-3 items-center">
-      {navItems.map(({ link }, i) => {
-        return <CMSLink key={i} {...link} appearance="link" />
-      })}
+    // <nav className="flex gap-3 items-center">
+    //   {navItems.map(({ link }, i) => {
+    //     return <CMSLink key={i} {...link} appearance="link" />
+    //   })}
      
-    </nav>
+    // </nav>
+    <nav className="flex gap-3 items-center text-black dark:text-black">
+  {navItems.map(({ link }, i) => (
+    <CMSLink
+      key={i}
+      {...link}
+      appearance="link"
+      className="text-black !text-black" // force black, ignore dark mode
+    />
+  ))}
+</nav>
   )
 }
