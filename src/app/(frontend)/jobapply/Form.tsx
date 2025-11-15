@@ -31,24 +31,52 @@ const Form: React.FC<FormProps> = () => {
   const [message, setMessage] = useState<Message | null>(null);
 
   // Load positions from API
-  useEffect(() => {
+//   useEffect(() => {
+//     async function loadPositions() {
+//       try {
+//         const res = await fetch("/api/openpositions2");
+//         const data = await res.json();
+//         const options: PositionOption[] = Array.isArray(data.docs)
+//           ? data.docs.map((p: any) => ({ id: p.id ?? p._id, header: p.header }))
+//           : [];
+//         setPositionsOptions(options);
+//           console.log('darta is ',data);
+          
+//         if (options.length > 0 && !position) setPosition(options[0].header);
+//       } catch (err) {
+//         console.error(err);
+//       }
+//     }
+//     loadPositions();
+//   }, [position]);
+
+useEffect(() => {
     async function loadPositions() {
       try {
         const res = await fetch("/api/openpositions2");
         const data = await res.json();
-        const options: PositionOption[] = Array.isArray(data.docs)
-          ? data.docs.map((p: any) => ({ id: p.id ?? p._id, header: p.header }))
+  
+        console.log('data is ', data); // debug
+  
+        // Map positions directly, assign string id for React keys
+        const options: PositionOption[] = Array.isArray(data)
+          ? data.map((p: any, index) => ({
+              id: p.id?.toString() ?? index.toString(), // fallback to index if no id
+              header: p.header,
+            }))
           : [];
+  
         setPositionsOptions(options);
-
+  
+        // Set first position as default if none selected
         if (options.length > 0 && !position) setPosition(options[0].header);
       } catch (err) {
         console.error(err);
       }
     }
+  
     loadPositions();
   }, [position]);
-
   const handleCvChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCvFile(e.target.files?.[0] || null);
   };
