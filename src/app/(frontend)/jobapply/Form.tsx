@@ -34,7 +34,7 @@ const Form: React.FC<FormProps> = () => {
   useEffect(() => {
     async function loadPositions() {
       try {
-        const res = await fetch("/api/openpositions");
+        const res = await fetch("/api/openpositions2");
         const data = await res.json();
         const options: PositionOption[] = Array.isArray(data.docs)
           ? data.docs.map((p: any) => ({ id: p.id ?? p._id, header: p.header }))

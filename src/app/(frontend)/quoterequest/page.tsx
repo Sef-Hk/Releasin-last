@@ -1,4 +1,4 @@
-export const dynamic = 'force-dynamic'; // or 'auto'
+export const dynamic = 'force-dynamic'; 
 
 import React from 'react';
 import RequestQuotationForm from './Form';
