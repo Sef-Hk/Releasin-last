@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 'use client'
 import { useHeaderTheme } from '@/providers/HeaderTheme'
 import React, { useEffect } from 'react'
