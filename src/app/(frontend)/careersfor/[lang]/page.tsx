@@ -98,7 +98,7 @@ const id = resolvedSearchParams?.id ?? null
       <div className="mb-8">
       <LetsTalk 
         label="Apply Now" 
-        url="http://localhost:3000/JoinOurTeam" 
+        url="#" 
       />
 </div>
 
@@ -111,7 +111,7 @@ const id = resolvedSearchParams?.id ?? null
     <div className="mt-8">
       <LetsTalk 
         label="Apply Now" 
-        url="http://localhost:3000/JoinOurTeam" 
+        url="#" 
       />
 </div>
       {/* Fallback if no result */}

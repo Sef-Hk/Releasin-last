@@ -78,7 +78,7 @@ export const OpenPosition: React.FC<OpenpositionInter> = ({ postion, header }) =
             <Link
               key={posId}
               href={href}
-              className="block no-underline"   // 🔥 removes underline
+              className="block no-underline"  
             >
               <div className="flex items-center justify-between py-4 px-2 cursor-pointer hover:bg-gray-50 rounded-sm">
                 <div className="text-left text-base font-medium">{title}</div>
