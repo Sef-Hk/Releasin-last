@@ -9,6 +9,10 @@ node_modules
 # Payload default media upload directory
 public/media/
 
+/src/app/(frontend)/joinourteam/
+
+/src/app/(frontend)/careersfor
+/src/app/(frontend)/reauestquotation
 public/robots.txt
 public/sitemap*.xml
 
