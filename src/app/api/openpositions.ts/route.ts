@@ -1,3 +1,4 @@
+export const runtime = "nodejs";
 // /src/app/api/openpositions/route.ts
 import { getPayload } from "payload";
 import configPromise from "@payload-config";
