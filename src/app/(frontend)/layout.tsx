@@ -31,7 +31,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html className={cn(GeistSans.variable, GeistMono.variable)} lang="en" suppressHydrationWarning>
       <head>
-        <InitTheme />
+        {/* <InitTheme /> */}
+         {/* Black THeme issue handling */}
+        <meta name="color-scheme" content="light only" />
+
         <link href="/favicon.ico" rel="icon" sizes="32x32" />
         <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
           {/* Preconnect for Google Fonts */}
