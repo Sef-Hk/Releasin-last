@@ -44,13 +44,21 @@ const dirname = path.dirname(filename)
 
 export default buildConfig({
   admin: {
+    meta: {
+      titleSuffix: '| Releasin', // ✅ changes tab title suffix
+      icons: [
+        {
+          rel: 'icon',
+          type: 'image/svg',
+          url: '/favicon.svg',
+        },
+      ],
+    },
     components: {
-      // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
-      // Feel free to delete this at any time. Simply remove the line below.
-      beforeLogin: ['@/components/BeforeLogin'],
-      // The `BeforeDashboard` component renders the 'welcome' block that you see after logging into your admin panel.
-      // Feel free to delete this at any time. Simply remove the line below.
-      beforeDashboard: ['@/components/BeforeDashboard'],
+      // graphics: {
+      //   Icon: '/graphics/Icon/index.tsx#Icon',
+      //   Logo: '/graphics/Logo/index.tsx#Logo',
+      // },
     },
     importMap: {
       baseDir: path.resolve(dirname),
