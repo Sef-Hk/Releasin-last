@@ -30,33 +30,33 @@ function Page() {
  
   
 
-  useEffect(() => {
-    async function loadPositions() {
-      try {
-        const res = await fetch("/api/openpositions");
-        const data = await res.json();
+  // useEffect(() => {
+  //   async function loadPositions() {
+  //     try {
+  //       const res = await fetch("/api/openpositions");
+  //       const data = await res.json();
   
-        // Payload returns a paginated object, so we need data.docs
-        const positionsArray = Array.isArray(data.docs) ? data.docs : [];
+  //       // Payload returns a paginated object, so we need data.docs
+  //       const positionsArray = Array.isArray(data.docs) ? data.docs : [];
   
-        // Map to our interface
-        const options: PositionOption[] = positionsArray.map((p: any) => ({
-          id: p.id ?? p._id,
-          header: p.header,
-        }));
+  //       // Map to our interface
+  //       const options: PositionOption[] = positionsArray.map((p: any) => ({
+  //         id: p.id ?? p._id,
+  //         header: p.header,
+  //       }));
   
-        setPositionsOptions(options);
+  //       setPositionsOptions(options);
   
-        // Set default selected position
-        if (options.length > 0 && !position) setPosition(options[0].header);
+  //       // Set default selected position
+  //       if (options.length > 0 && !position) setPosition(options[0].header);
   
-        // console.log("Positions options:", options);
-      } catch (err) {
-        console.error(err);
-      }
-    }
-    loadPositions();
-  }, []);
+  //       // console.log("Positions options:", options);
+  //     } catch (err) {
+  //       console.error(err);
+  //     }
+  //   }
+  //   loadPositions();
+  // }, []);
 
 
 
@@ -152,7 +152,7 @@ function Page() {
 
         {/* Position */}
     
-
+{/* 
 <div className="flex flex-col">
   <label className="text-gray-800 mb-1">Position *</label>
   <select
@@ -167,7 +167,24 @@ function Page() {
       </option>
     ))}
   </select>
+</div> */}
+
+<div className="flex flex-col">
+  <label className="text-gray-800 mb-1">Position *</label>
+  <select
+    value={position}
+    onChange={(e) => setPosition(e.target.value)}
+    className="border-b border-gray-300 focus:outline-none focus:border-gray-500 pb-1"
+    required
+  >
+    
+      <option >
+        Data scientiste
+      </option>
+   
+  </select>
 </div>
+
 
 
 
