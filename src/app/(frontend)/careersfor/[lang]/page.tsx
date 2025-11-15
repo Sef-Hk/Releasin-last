@@ -99,7 +99,7 @@ const id = resolvedSearchParams?.id ?? null
       <div className="mb-8">
       <LetsTalk 
         label="Apply Now" 
-        url="#" 
+        url="/jobapply" 
       />
 </div>
 
