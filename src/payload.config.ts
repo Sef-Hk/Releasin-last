@@ -55,10 +55,10 @@ export default buildConfig({
       ],
     },
     components: {
-      // graphics: {
-      //   Icon: '/graphics/Icon/index.tsx#Icon',
-      //   Logo: '/graphics/Logo/index.tsx#Logo',
-      // },
+      graphics: {
+        Icon: '/graphics/Icon/index.tsx#Icon',
+        Logo: '/graphics/Logo/index.tsx#Logo',
+      },
     },
     importMap: {
       baseDir: path.resolve(dirname),
