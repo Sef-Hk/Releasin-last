@@ -7,6 +7,8 @@ import path from 'path'
 import crypto from 'crypto'
 
 export const runtime = 'nodejs'
+export const dynamic = 'force-dynamic' // avoid caching
+
 
 export async function POST(req: Request) {
   try {

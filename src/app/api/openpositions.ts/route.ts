@@ -1,7 +1,9 @@
-export const runtime = "nodejs";
 // /src/app/api/openpositions/route.ts
 import { getPayload } from "payload";
 import configPromise from "@payload-config";
+
+export const runtime = 'nodejs'
+export const dynamic = 'force-dynamic' // avoid caching
 
 export async function GET() {
   try {

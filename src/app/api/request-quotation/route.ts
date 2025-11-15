@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 
+
+export const runtime = 'nodejs'
+export const dynamic = 'force-dynamic' // avoid caching
 export async function POST(req: Request) {
   try {
     const body = await req.json()
