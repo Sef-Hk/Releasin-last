@@ -112,6 +112,7 @@
 //   return result.docs?.[0] || null
 // })
 
+export const dynamic = 'force-dynamic' 
 
 import type { Metadata } from 'next'
 

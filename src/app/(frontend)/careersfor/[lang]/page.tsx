@@ -1,5 +1,6 @@
 
 
+export const dynamic = 'force-dynamic' // or 'auto'
 
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
