@@ -1,22 +1,3 @@
-// import type { OpenpositionInter } from "@/payload-types"
-// export const OpenPosition : React.FC<OpenpositionInter> = ({postion,header}) => {
-//     return (
-//         <div>
-             
-//              <div>{header}</div>
-//             {postion?.map((pos,ind)=> {
-//                 return(
-//                     <div key={ind}>
-//                        <div> here are the postion modifed theem, leter</div> 
-                       
-                    
-//                     </div>
-//                 )
-//             })}
-//         </div>
-//     )
-// }
-
 'use client'
 
 import React from 'react'
