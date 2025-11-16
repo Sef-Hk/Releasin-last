@@ -72,7 +72,7 @@ export const OpenPosition: React.FC<OpenpositionInter> = ({ postion, header }) =
             location = ''
           }
 
-          const href = `/careersfor/${lang}?id=${encodeURIComponent(posId)}`
+          const href = `/careers/${lang}?id=${encodeURIComponent(posId)}`
 
           return (
             <Link
