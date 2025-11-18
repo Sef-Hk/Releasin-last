@@ -1,6 +1,237 @@
+// 'use client'
+
+// import React, { useEffect, useState } from "react";
+// import Image from "next/image";
+
+// interface PositionOption {
+//   id: string;
+//   header: string;
+// }
+
+// interface Message {
+//   type: "success" | "error";
+//   text: string;
+// }
+
+// interface FormProps {
+//   // Optional: could pass default positions if needed
+// }
+
+// const Form: React.FC<FormProps> = () => {
+//   const [fullName, setFullName] = useState<string>("");
+//   const [email, setEmail] = useState<string>("");
+//   const [phone, setPhone] = useState<string>("");
+//   const [position, setPosition] = useState<string>("");
+//   const [cvFile, setCvFile] = useState<File | null>(null);
+//   const [additionalLinks, setAdditionalLinks] = useState<string>("");
+//   const [coverLetter, setCoverLetter] = useState<string>("");
+
+//   const [positionsOptions, setPositionsOptions] = useState<PositionOption[]>([]);
+//   const [submitting, setSubmitting] = useState<boolean>(false);
+//   const [message, setMessage] = useState<Message | null>(null);
+
+
+// useEffect(() => {
+//     async function loadPositions() {
+//       try {
+//         const res = await fetch("/api/openpositions2");
+//         const data = await res.json();
+  
+//         console.log('data is ', data); // debug
+  
+//         // Map positions directly, assign string id for React keys
+//         const options: PositionOption[] = Array.isArray(data)
+//           ? data.map((p: any, index) => ({
+//               id: p.id?.toString() ?? index.toString(), // fallback to index if no id
+//               header: p.header,
+//             }))
+//           : [];
+  
+//         setPositionsOptions(options);
+  
+//         // Set first position as default if none selected
+//         if (options.length > 0 && !position) setPosition(options[0].header);
+//       } catch (err) {
+//         console.error(err);
+//       }
+//     }
+  
+//     loadPositions();
+//   }, [position]);
+//   const handleCvChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+//     setCvFile(e.target.files?.[0] || null);
+//   };
+
+//   const handleSubmit = async (e: React.FormEvent) => {
+//     e.preventDefault();
+//     setMessage(null);
+
+//     if (!fullName || !email || !phone || !position || !cvFile || !coverLetter) {
+//       setMessage({ type: "error", text: "Please fill all required fields." });
+//       return;
+//     }
+
+//     const formData = new FormData();
+//     formData.append("fullName", fullName);
+//     formData.append("email", email);
+//     formData.append("phone", phone);
+//     formData.append("position", position);
+//     formData.append("cv", cvFile);
+//     formData.append("additionalLinks", additionalLinks);
+//     formData.append("coverLetter", coverLetter);
+
+//     try {
+//       setSubmitting(true);
+//       const res = await fetch("/api/apply", { method: "POST", body: formData });
+
+//       if (!res.ok) {
+//         const text = await res.text();
+//         throw new Error(text || "Submission failed");
+//       }
+
+//       setMessage({ type: "success", text: "Application sent successfully." });
+
+//       // Reset form
+//       setFullName("");
+//       setEmail("");
+//       setPhone("");
+//       setPosition(positionsOptions[0]?.header || "");
+//       setCvFile(null);
+//       setAdditionalLinks("");
+//       setCoverLetter("");
+//       const input = document.getElementById("cv-input") as HTMLInputElement | null;
+//       if (input) input.value = "";
+//     } catch (err: any) {
+//       setMessage({ type: "error", text: err.message || "Something went wrong" });
+//     } finally {
+//       setSubmitting(false);
+//     }
+//   };
+
+//   return (
+//     <form onSubmit={handleSubmit} encType="multipart/form-data" className="space-y-6">
+//       {/* Name, Email, Phone */}
+//       {[
+//         { label: "Full name *", value: fullName, setValue: setFullName, type: "text", placeholder: "Example Full name" },
+//         { label: "Email *", value: email, setValue: setEmail, type: "email", placeholder: "example@email.com" },
+//         { label: "Phone *", value: phone, setValue: setPhone, type: "tel", placeholder: "+123456789" },
+//       ].map((field, i) => (
+//         <div key={i} className="flex flex-col">
+//           <label className="text-gray-800 mb-1">{field.label}</label>
+//           <input
+//             type={field.type}
+//             value={field.value}
+//             onChange={(e) => field.setValue(e.target.value)}
+//             placeholder={field.placeholder}
+//             className="border-b border-gray-300 focus:outline-none focus:border-gray-500 pb-1 text-gray-800"
+//             required
+//           />
+//         </div>
+//       ))}
+
+//       {/* Position */}
+//       <div className="flex flex-col">
+//         <label className="text-gray-800 mb-1">Position *</label>
+//         {/* <select
+//           value={position}
+//           onChange={(e) => setPosition(e.target.value)}
+//           className="border-b border-gray-300 focus:outline-none focus:border-gray-500 pb-1"
+//           required
+//         >
+//           {positionsOptions.map((opt) => (
+//             <option key={opt.id} value={opt.header}>
+//               {opt.header}
+//             </option>
+//           ))}
+//         </select> */}
+//         <select
+//   value={position}
+//   onChange={(e) => setPosition(e.target.value)}
+//   className="border-b border-gray-300 focus:outline-none focus:border-gray-500 pb-1"
+//   required
+// >
+//   <option value="" disabled>
+//     Select position
+//   </option>
+
+//   {positionsOptions.map((opt) => (
+//     <option key={opt.id} value={opt.header}>
+//       {opt.header}
+//     </option>
+//   ))}
+// </select>
+//       </div>
+
+
+//       {/* CV Upload */}
+//       <div className="flex flex-col">
+//         <label className="text-gray-800 mb-1">CV / Resume *</label>
+//         <label htmlFor="cv-input" className="flex items-center gap-2 cursor-pointer border-b border-gray-300 pb-1">
+//           <Image src="/upload.svg" alt="Upload" width={24} height={24} />
+//           <span className="text-gray-500">{cvFile ? cvFile.name : "Upload your CV"}</span>
+//         </label>
+//         <input
+//           id="cv-input"
+//           type="file"
+//           accept=".pdf,.doc,.docx,application/pdf,application/msword"
+//           onChange={handleCvChange}
+//           className="hidden"
+//           required
+//         />
+//       </div>
+
+//       {/* Additional Links */}
+//       <div className="flex flex-col">
+//         <label className="text-gray-800 mb-1">Additional links / Work samples</label>
+//         <input
+//           type="text"
+//           value={additionalLinks}
+//           onChange={(e) => setAdditionalLinks(e.target.value)}
+//           placeholder="Example: portfolio link"
+//           className="border-b border-gray-300 focus:outline-none focus:border-gray-500 pb-1"
+//         />
+//       </div>
+
+//       {/* Cover Letter */}
+//       <div className="flex flex-col">
+//         <label className="text-gray-800 mb-1">Cover letter *</label>
+//         <textarea
+//           value={coverLetter}
+//           onChange={(e) => setCoverLetter(e.target.value)}
+//           rows={6}
+//           placeholder="Write your cover letter here..."
+//           className="border-b border-gray-300 focus:outline-none focus:border-gray-500 pb-1 text-gray-800"
+//           required
+//         />
+//       </div>
+
+//       {/* Submit Button */}
+//       <div>
+//         <button
+//           type="submit"
+//           disabled={submitting}
+//           className="bg-black text-white py-2 px-6 rounded hover:bg-gray-800 transition"
+//         >
+//           {submitting ? "Sending..." : "Send Application"}
+//         </button>
+//       </div>
+
+//       {/* Message */}
+//       {message && (
+//         <div className={`mt-4 text-${message.type === "error" ? "red-600" : "green-600"}`} role="status">
+//           {message.text}
+//         </div>
+//       )}
+//     </form>
+//   );
+// };
+
+// export default Form;
+
+
 'use client'
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 interface PositionOption {
@@ -14,14 +245,14 @@ interface Message {
 }
 
 interface FormProps {
-  // Optional: could pass default positions if needed
+  // Optionally accept default positions or callbacks in the future
 }
 
 const Form: React.FC<FormProps> = () => {
   const [fullName, setFullName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [phone, setPhone] = useState<string>("");
-  const [position, setPosition] = useState<string>("");
+  const [position, setPosition] = useState<string>(""); // start empty => placeholder shown
   const [cvFile, setCvFile] = useState<File | null>(null);
   const [additionalLinks, setAdditionalLinks] = useState<string>("");
   const [coverLetter, setCoverLetter] = useState<string>("");
@@ -30,61 +261,58 @@ const Form: React.FC<FormProps> = () => {
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [message, setMessage] = useState<Message | null>(null);
 
-  // Load positions from API
-//   useEffect(() => {
-//     async function loadPositions() {
-//       try {
-//         const res = await fetch("/api/openpositions2");
-//         const data = await res.json();
-//         const options: PositionOption[] = Array.isArray(data.docs)
-//           ? data.docs.map((p: any) => ({ id: p.id ?? p._id, header: p.header }))
-//           : [];
-//         setPositionsOptions(options);
-//           console.log('darta is ',data);
-          
-//         if (options.length > 0 && !position) setPosition(options[0].header);
-//       } catch (err) {
-//         console.error(err);
-//       }
-//     }
-//     loadPositions();
-//   }, [position]);
+  const cvInputRef = useRef<HTMLInputElement | null>(null);
 
-useEffect(() => {
+  useEffect(() => {
+    // Load positions once on mount
     async function loadPositions() {
       try {
         const res = await fetch("/api/openpositions2");
+        if (!res.ok) {
+          console.error("Failed to fetch positions", res.status);
+          return;
+        }
         const data = await res.json();
-  
-        console.log('data is ', data); // debug
-  
-        // Map positions directly, assign string id for React keys
+
+        // Map positions safely
         const options: PositionOption[] = Array.isArray(data)
           ? data.map((p: any, index) => ({
-              id: p.id?.toString() ?? index.toString(), // fallback to index if no id
-              header: p.header,
+              id: p.id?.toString() ?? index.toString(),
+              header: p.header ?? `Position ${index + 1}`,
             }))
           : [];
-  
+
         setPositionsOptions(options);
-  
-        // Set first position as default if none selected
-        if (options.length > 0 && !position) setPosition(options[0].header);
+        // DO NOT setPosition here: we want the placeholder by default
       } catch (err) {
-        console.error(err);
+        console.error("Error loading positions:", err);
       }
     }
-  
+
     loadPositions();
-  }, [position]);
+  }, []); // empty deps -> run once
+
   const handleCvChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCvFile(e.target.files?.[0] || null);
+    const file = e.target.files?.[0] ?? null;
+    setCvFile(file);
+  };
+
+  const resetForm = () => {
+    setFullName("");
+    setEmail("");
+    setPhone("");
+    setPosition(""); // clear selection -> placeholder shows
+    setCvFile(null);
+    setAdditionalLinks("");
+    setCoverLetter("");
+    if (cvInputRef.current) cvInputRef.current.value = "";
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setMessage(null);
 
+    // Basic required checks
     if (!fullName || !email || !phone || !position || !cvFile || !coverLetter) {
       setMessage({ type: "error", text: "Please fill all required fields." });
       return;
@@ -109,19 +337,9 @@ useEffect(() => {
       }
 
       setMessage({ type: "success", text: "Application sent successfully." });
-
-      // Reset form
-      setFullName("");
-      setEmail("");
-      setPhone("");
-      setPosition(positionsOptions[0]?.header || "");
-      setCvFile(null);
-      setAdditionalLinks("");
-      setCoverLetter("");
-      const input = document.getElementById("cv-input") as HTMLInputElement | null;
-      if (input) input.value = "";
+      resetForm();
     } catch (err: any) {
-      setMessage({ type: "error", text: err.message || "Something went wrong" });
+      setMessage({ type: "error", text: err?.message || "Something went wrong" });
     } finally {
       setSubmitting(false);
     }
@@ -144,19 +362,27 @@ useEffect(() => {
             placeholder={field.placeholder}
             className="border-b border-gray-300 focus:outline-none focus:border-gray-500 pb-1 text-gray-800"
             required
+            aria-label={field.label}
           />
         </div>
       ))}
 
       {/* Position */}
       <div className="flex flex-col">
-        <label className="text-gray-800 mb-1">Position *</label>
+        <label htmlFor="position-select" className="text-gray-800 mb-1">Position *</label>
         <select
+          id="position-select"
           value={position}
           onChange={(e) => setPosition(e.target.value)}
           className="border-b border-gray-300 focus:outline-none focus:border-gray-500 pb-1"
           required
+          aria-required
         >
+          {/* Placeholder option */}
+          <option value="" disabled>
+            Select position
+          </option>
+
           {positionsOptions.map((opt) => (
             <option key={opt.id} value={opt.header}>
               {opt.header}
@@ -168,12 +394,13 @@ useEffect(() => {
       {/* CV Upload */}
       <div className="flex flex-col">
         <label className="text-gray-800 mb-1">CV / Resume *</label>
-        <label htmlFor="cv-input" className="flex items-center gap-2 cursor-pointer border-b border-gray-300 pb-1">
+        <label htmlFor="cv-input" className="flex items-center gap-2 cursor-pointer border-b border-gray-300 pb-1" aria-hidden>
           <Image src="/upload.svg" alt="Upload" width={24} height={24} />
           <span className="text-gray-500">{cvFile ? cvFile.name : "Upload your CV"}</span>
         </label>
         <input
           id="cv-input"
+          ref={cvInputRef}
           type="file"
           accept=".pdf,.doc,.docx,application/pdf,application/msword"
           onChange={handleCvChange}
@@ -191,6 +418,7 @@ useEffect(() => {
           onChange={(e) => setAdditionalLinks(e.target.value)}
           placeholder="Example: portfolio link"
           className="border-b border-gray-300 focus:outline-none focus:border-gray-500 pb-1"
+          aria-label="Additional links"
         />
       </div>
 
@@ -204,6 +432,7 @@ useEffect(() => {
           placeholder="Write your cover letter here..."
           className="border-b border-gray-300 focus:outline-none focus:border-gray-500 pb-1 text-gray-800"
           required
+          aria-label="Cover letter"
         />
       </div>
 
@@ -213,6 +442,7 @@ useEffect(() => {
           type="submit"
           disabled={submitting}
           className="bg-black text-white py-2 px-6 rounded hover:bg-gray-800 transition"
+          aria-busy={submitting}
         >
           {submitting ? "Sending..." : "Send Application"}
         </button>
@@ -220,7 +450,11 @@ useEffect(() => {
 
       {/* Message */}
       {message && (
-        <div className={`mt-4 text-${message.type === "error" ? "red-600" : "green-600"}`} role="status">
+        <div
+          className={`mt-4 ${message.type === "error" ? "text-red-600" : "text-green-600"}`}
+          role="status"
+          aria-live="polite"
+        >
           {message.text}
         </div>
       )}
